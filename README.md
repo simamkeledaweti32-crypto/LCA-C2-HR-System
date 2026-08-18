@@ -1,25 +1,35 @@
 # LCA-C2-HR-System
-### ModernTech Solutions HR System
+### ModernTech Solutions - HR Management System
+**LCA Course 2 Core Project**
 
-Course 2 Core Project
+---
 
-## About This Project
-This is a Full Stack HR Management System.
-It allows HR to manage Employees, Departments, and Time-off Requests.
+## 📋 About This Project
+A Full Stack HR Management System built with Vue.js, Node.js, and MySQL.
+This system allows HR personnel to manage Employees, Departments, and Employee Time-off Requests through a simple web interface.
 
-## Technologies Used
-- Frontend: Vue.js 3
-- Backend: Node.js with Express
-- Database: MySQL
-- API: REST
+The backend provides a REST API and the frontend consumes the API to display data.
 
-## How to Run This Project
+---
 
-1. **Setup Database**
-   - Open MySQL/phpMyAdmin
-   - Run the SQL file: `database/schema.sql`
+## 🛠️ Technologies Used
+- **Frontend**: Vue.js 3 + Vanilla JavaScript + CSS
+- **Backend**: Node.js + Express.js
+- **Database**: MySQL
+- **API**: RESTful API
+- **Environment**: dotenv for configuration
 
-2. **Start Backend Server**
+---
+
+## 🚀 How to Run This Project
+
+### 1. **Setup Database**
+1. Open phpMyAdmin or MySQL Workbench
+2. Create a database named `hr_system`
+3. Import and run the SQL file: `database/schema.sql`
+
+### 2. **Start Backend Server**
+Open terminal in the `backend` folder and run:
 ```bash
 cd backend
 npm install
