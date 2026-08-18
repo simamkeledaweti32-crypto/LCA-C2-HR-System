@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ModernTech HR System</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    body { font-family: Arial; padding: 20px; background: #f5f5f5; }
+    h1 { color: #2c3e50; text-align: center; }
+    .tabs button { padding: 10px 20px; margin-right: 5px; border: none; background: #ddd; cursor: pointer; border-radius: 4px; font-weight: bold; }
+    .tabs button.active { background: #4CAF50; color: white; }
+    .card { background: white; padding: 20px; margin: 15px 0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+    th { background: #4CAF50; color: white; }
+    button { background: #2196F3; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; }
+    button:hover { background: #1976D2; }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h1>🏢 ModernTech HR System - Course 2 Project</h1>
+    
+    <div class="tabs">
+      <button @click="tab='employees'" :class="{active: tab==='employees'}">Employees</button>
+      <button @click="tab='departments'" :class="{active: tab==='departments'}">Departments</button>
+      <button @click="tab='timeoff'" :class="{active: tab==='timeoff'}">Time Off</button>
+    </div>
+
+    <div class="card" v-if="tab==='employees'">
+      <h2>Employee Management Module</h2>
+      <button @click="getEmployees">Load Employees from API</button>
+      <p v-if="employees.length === 0">Click button to load data from backend</p>
+      <table v-if="employees.length > 0">
+        <tr><th>ID</th><th>Name</th><th>Email</th><th>Job Title</th><th>Salary</th></tr>
+        <tr v-for="emp in employees" :key="emp.id">
+          <td>{{ emp.id }}</td>
+          <td>{{ emp.first_name }} {{ emp.last_name }}</td>
+          <td>{{ emp.email }}</td>
+          <td>{{ emp.job_title }}</td>
+          <td>R{{ emp.salary }}</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="card" v-if="tab==='departments'">
+      <h2>Department Management</h2>
+      <button @click="getDepartments">Load Departments</button>
+      <table v-if="departments.length > 0">
+        <tr><th>ID</th><th>Department Name</th></tr>
+        <tr v-for="dept in departments" :key="dept.id">
+          <td>{{ dept.id }}</td>
+          <td>{{ dept.name }}</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="card" v-if="tab==='timeoff'">
+      <h2>Time Off Requests</h2>
+      <button @click="getTimeoff">Load Requests</button>
+      <table v-if="timeoff.length > 0">
+        <tr><th>ID</th><th>Employee ID</th><th>Leave Type</th><th>Start</th><th>End</th><th>Status</th></tr>
+        <tr v-for="req in timeoff" :key="req.id">
+          <td>{{ req.id }}</td>
+          <td>{{ req.employee_id }}</td>
+          <td>{{ req.leave_type }}</td>
+          <td>{{ req.start_date }}</td>
+          <td>{{ req.end_date }}</td>
+          <td>{{ req.status }}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const { createApp } = Vue
+    createApp({
+      data() {
+        return {
+          tab: 'employees',
+          employees: [],
+          departments: [],
+          timeoff: [],
+          apiUrl: 'http://localhost:3000'
+        }
+      },
+      methods: {
+        async getEmployees() {
+          const res = await fetch(`${this.apiUrl}/api/employees`);
+          this.employees = await res.json();
+        },
+        async getDepartments() {
+          const res = await fetch(`${this.apiUrl}/api/departments`);
+          this.departments = await res.json();
+        },
+        async getTimeoff() {
+          const res = await fetch(`${this.apiUrl}/api/timeoff`);
+          this.timeoff = await res.json();
+        }
+      }
+    }).mount('#app')
+  </script>
+</body>
+          </html>
